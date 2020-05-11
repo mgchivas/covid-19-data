@@ -15,6 +15,9 @@ countyDates = countyData[cookMask]["date"]
 countyCases = countyData[cookMask]["cases"].diff().fillna(0)
 county7DayAvg = countyCases.rolling(7).mean().fillna(0)
 
+countyDates = pd.to_datetime(countyDates)
+countyDates = countyDates.dt.strftime("%m/%d/%y")
+
 # State data
 stateData = pd.read_csv(statesPath)
 ILMask = stateData["state"] == "Illinois"
@@ -22,11 +25,17 @@ stateDates = stateData[ILMask]["date"]
 stateCases = stateData[ILMask]["cases"].diff().fillna(0)
 state7DayAvg = stateCases.rolling(7).mean().fillna(0)
 
+stateDates = pd.to_datetime(stateDates)
+stateDates = stateDates.dt.strftime("%m/%d/%y")
+
 # Country data
 countryData = pd.read_csv(countryPath)
 countryDates = countryData["date"]
 countryCases = countryData["cases"].diff().fillna(0)
 country7DayAvg = countryCases.rolling(7).mean().fillna(0)
+
+countryDates = pd.to_datetime(countryDates)
+countryDates = countryDates.dt.strftime("%m/%d/%y")
 
 # plot county data
 plt.bar(countyDates, countyCases, alpha = .3)
