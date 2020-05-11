@@ -21,7 +21,7 @@ stateCases = stateData[ILMask]["cases"].diff().fillna(0)
 state7DayAvg = stateCases.rolling(7).mean().fillna(0)
 
 # plot county data
-plt.bar(countyDates, countyCases)
+plt.bar(countyDates, countyCases, alpha = .3)
 plt.plot(countyDates, county7DayAvg)
 plt.xlabel("Date")
 plt.xticks(rotation = 90)
@@ -31,7 +31,7 @@ plt.title("Total Cases in Cook County")
 plt.figure() # create a new figure
 
 # plot state data
-plt.bar(stateDates, stateCases)
+plt.bar(stateDates, stateCases, alpha = .3)
 plt.plot(stateDates, state7DayAvg)
 plt.xlabel("Date")
 plt.xticks(rotation = 90)
