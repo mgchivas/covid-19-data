@@ -3,22 +3,36 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-path = "us-counties.csv"
+countiesPath = "us-counties.csv"
+statesPath = "us-states.csv"
 
-# read csv using pandas
-df = pd.read_csv(path)
-ILMask = df["state"] == "Illinois"
-cookMask = df["fips"] == 17031
+# County data
+countyData = pd.read_csv(countiesPath)
+cookMask = countyData["county"] == "Cook"
+countyDates = countyData[cookMask]["date"]
+countyCases = countyData[cookMask]["cases"]
 
-datesIL = df[ILMask]["date"]
-casesInIL = df[ILMask]["cases"]
-datesCook = df[cookMask]["date"]
-casesInCook = df[cookMask]["cases"]
-# print(df[mask])
+# State data
+stateData = pd.read_csv(statesPath)
+ILMask = stateData["state"] == "Illinois"
+stateDates = stateData[ILMask]["date"]
+stateCases = stateData[ILMask]["cases"]
+
+# plot county data
+plt.bar(countyDates, countyCases)
+plt.xlabel("Date")
+plt.xticks(rotation = 90)
+plt.ylabel("Total Cases")
+plt.title("Total Cases in Cook County")
+
+plt.figure() # create a new figure
+
+# plot state data
+plt.bar(stateDates, stateCases)
+plt.xlabel("Date")
+plt.xticks(rotation = 90)
+plt.ylabel("Total Cases")
+plt.title("Total Cases in Illinois")
 
 # plot
-plt.bar(datesCook, casesInCook)
-plt.xlabel("Date")
-plt.ylabel("Total Cases")
-plt.title("Total Cases in Cook")
 plt.show()
